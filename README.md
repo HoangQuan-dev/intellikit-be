@@ -96,3 +96,159 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+# IntelliKit Backend
+
+A NestJS backend application with GraphQL API for ChatGPT integration and user management.
+
+## Features
+
+- **GraphQL API** with Apollo Server
+- **Gemini Integration** with Google Gemini API
+- **User Management** with authentication
+- **Chat Sessions** with message history
+- **System Prompts** management
+- **PostgreSQL Database** with TypeORM
+
+## Prerequisites
+
+- Node.js (v18 or higher)
+- PostgreSQL (v12 or higher)
+- Google Gemini API Key
+
+## Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd intellikit-be
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Set up PostgreSQL:**
+   ```bash
+   # Create database
+   createdb intellikit
+   
+   # Or using psql
+   psql -U postgres
+   CREATE DATABASE intellikit;
+   \q
+   ```
+
+4. **Environment Configuration:**
+   Create a `.env` file in the root directory:
+   ```bash
+   # Database Configuration (PostgreSQL)
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_USERNAME=postgres
+   DB_PASSWORD=your_password
+   DB_NAME=intellikit
+   
+   # Gemini Configuration
+NEST_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
+   
+   # Application
+   NODE_ENV=development
+   PORT=8080
+   ```
+
+## Running the Application
+
+### Development
+```bash
+npm run start:dev
+```
+
+### Production
+```bash
+npm run build
+npm run start:prod
+```
+
+## API Documentation
+
+### GraphQL Playground
+Access the GraphQL playground at: `http://localhost:8080/graphql`
+
+### Available Operations
+
+#### Queries:
+- `chatSession(id: ID!)` - Get a specific chat session
+- `chatSessions(userId: ID!)` - Get all chat sessions for a user
+- `systemPrompts(userId: ID!)` - Get all system prompts for a user
+- `user(id: String!)` - Get a specific user
+
+#### Mutations:
+- `createChatSession(input: CreateChatSessionInput!)` - Create a new chat session
+- `updateChatSession(input: UpdateChatSessionInput!)` - Update a chat session
+- `deleteChatSession(id: ID!)` - Delete a chat session
+- `sendMessage(input: SendMessageInput!)` - Send a message and get AI response
+- `createSystemPrompt(input: CreateSystemPromptInput!)` - Create a system prompt
+- `deleteSystemPrompt(id: ID!)` - Delete a system prompt
+- `createUser(email: String!, firstName: String!, lastName: String!)` - Create a user
+- `createTestUser()` - Create a test user
+
+## Database Schema
+
+The application uses PostgreSQL with the following main entities:
+- **Users** - User accounts and profiles
+- **ChatSessions** - Chat conversation sessions
+- **ChatMessages** - Individual messages in conversations
+- **SystemPrompts** - Custom system prompts for AI behavior
+
+## Testing
+
+```bash
+# Unit tests
+npm run test
+
+# e2e tests
+npm run test:e2e
+
+# Test coverage
+npm run test:cov
+```
+
+## Deployment
+
+### Docker (Recommended)
+```bash
+# Build the image
+docker build -t intellikit-be .
+
+# Run with environment variables
+docker run -p 8080:8080 \
+  -e DB_HOST=your_db_host \
+  -e DB_PORT=5432 \
+  -e DB_USERNAME=your_db_user \
+  -e DB_PASSWORD=your_db_password \
+  -e DB_NAME=intellikit \
+  -e NEST_PUBLIC_GEMINI_API_KEY=your_gemini_key \
+  intellikit-be
+```
+
+### Cloud Platforms
+This application is optimized for deployment on:
+- **Heroku** - Easy PostgreSQL integration
+- **Railway** - Built-in PostgreSQL support
+- **Render** - PostgreSQL add-on available
+- **DigitalOcean** - Managed PostgreSQL databases
+- **AWS RDS** - PostgreSQL service
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.

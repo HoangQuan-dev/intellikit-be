@@ -8,7 +8,7 @@ export class CreateChatSessionInput {
   @IsNotEmpty()
   title: string;
 
-  @Field(() => ChatModel, { defaultValue: ChatModel.GPT_3_5_TURBO })
+  @Field(() => ChatModel, { defaultValue: ChatModel.GEMINI_2_0_FLASH })
   @IsEnum(ChatModel)
   model: ChatModel;
 

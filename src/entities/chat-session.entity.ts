@@ -13,15 +13,13 @@ import { User } from './user.entity';
 import { ChatMessage } from './chat-message.entity';
 
 export enum ChatModel {
-  GPT_3_5_TURBO = 'gpt-3.5-turbo',
-  GPT_4 = 'gpt-4',
-  GPT_4_TURBO = 'gpt-4-turbo',
-  GPT_4O = 'gpt-4o',
+  GEMINI_1_5_PRO = 'gemini-1.5-pro',
+  GEMINI_2_0_FLASH = 'gemini-2.0-flash',
 }
 
 registerEnumType(ChatModel, {
   name: 'ChatModel',
-  description: 'Available ChatGPT models',
+  description: 'Available Gemini models',
 });
 
 @ObjectType()
@@ -39,7 +37,7 @@ export class ChatSession {
   @Column({
     type: 'varchar',
     enum: ChatModel,
-    default: ChatModel.GPT_3_5_TURBO,
+    default: ChatModel.GEMINI_2_0_FLASH,
   })
   model: ChatModel;
 

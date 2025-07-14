@@ -5,7 +5,7 @@ import { ChatSession } from '../../entities/chat-session.entity';
 import { ChatMessage, MessageRole } from '../../entities/chat-message.entity';
 import { SystemPrompt } from '../../entities/system-prompt.entity';
 import { User } from '../../entities/user.entity';
-import { OpenAIService } from './openai.service';
+import { GeminiService } from './gemini.service';
 import { CreateChatSessionInput } from '../dto/create-chat-session.input';
 import { UpdateChatSessionInput } from '../dto/update-chat-session.input';
 import { SendMessageInput } from '../dto/send-message.input';
@@ -23,7 +23,7 @@ export class ChatGptService {
     private systemPromptRepository: Repository<SystemPrompt>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    private openAIService: OpenAIService,
+    private geminiService: GeminiService,
   ) {}
 
   async createChatSession(input: CreateChatSessionInput): Promise<ChatSession> {
@@ -137,10 +137,10 @@ export class ChatGptService {
       content: input.message,
     });
 
-    // Get response from OpenAI
-    const openAIMessages = this.openAIService.convertToOpenAIMessages(messages);
-    const aiResponse = await this.openAIService.createChatCompletion(
-      openAIMessages,
+    // Get response from Gemini
+    const geminiMessages = this.geminiService.convertToOpenAIMessages(messages);
+    const aiResponse = await this.geminiService.createChatCompletion(
+      geminiMessages,
       chatSession.model,
     );
 

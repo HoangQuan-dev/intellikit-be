@@ -1,0 +1,123 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ChatMessage {
+  chatSession: ChatSession!
+  chatSessionId: ID!
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  role: MessageRole!
+  tokenCount: Float
+}
+
+"""Available Gemini models"""
+enum ChatModel {
+  GEMINI_1_5_PRO
+  GEMINI_2_0_FLASH
+}
+
+type ChatResponse {
+  assistantMessage: ChatMessage!
+  chatSessionId: ID!
+  completionTokens: Int!
+  promptTokens: Int!
+  totalTokens: Int!
+  userMessage: ChatMessage!
+}
+
+type ChatSession {
+  createdAt: DateTime!
+  id: ID!
+  isActive: Boolean!
+  messages: [ChatMessage!]!
+  model: ChatModel!
+  systemPrompt: String
+  title: String!
+  updatedAt: DateTime!
+  user: User!
+  userId: ID!
+}
+
+input CreateChatSessionInput {
+  model: ChatModel! = GEMINI_2_0_FLASH
+  systemPrompt: String
+  title: String!
+  userId: ID!
+}
+
+input CreateSystemPromptInput {
+  description: String
+  name: String!
+  prompt: String!
+  userId: ID!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Role of the message sender"""
+enum MessageRole {
+  ASSISTANT
+  SYSTEM
+  USER
+}
+
+type Mutation {
+  createChatSession(input: CreateChatSessionInput!): ChatSession!
+  createSystemPrompt(input: CreateSystemPromptInput!): SystemPrompt!
+  createTestUser: User!
+  createUser(email: String!, firstName: String!, lastName: String!): User!
+  deleteChatSession(id: ID!): Boolean!
+  deleteSystemPrompt(id: ID!): Boolean!
+  sendMessage(input: SendMessageInput!): ChatResponse!
+  updateChatSession(input: UpdateChatSessionInput!): ChatSession!
+}
+
+type Query {
+  chatSession(id: ID!): ChatSession!
+  chatSessions(userId: ID!): [ChatSession!]!
+  systemPrompts(userId: ID!): [SystemPrompt!]!
+  user(id: String!): User
+}
+
+input SendMessageInput {
+  chatSessionId: ID!
+  message: String!
+}
+
+type SystemPrompt {
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  isActive: Boolean!
+  isDefault: Boolean!
+  name: String!
+  prompt: String!
+  updatedAt: DateTime!
+  user: User!
+  userId: ID!
+}
+
+input UpdateChatSessionInput {
+  id: ID!
+  isActive: Boolean
+  model: ChatModel
+  systemPrompt: String
+  title: String
+}
+
+type User {
+  chatSessions: [ChatSession!]!
+  createdAt: DateTime!
+  email: String!
+  firstName: String!
+  id: ID!
+  isActive: Boolean!
+  lastName: String!
+  systemPrompts: [SystemPrompt!]!
+  updatedAt: DateTime!
+}

@@ -1,6 +1,6 @@
-# ChatGPT Tool GraphQL Examples
+# Gemini Chat Tool GraphQL Examples
 
-This document contains comprehensive examples for testing the ChatGPT tool queries and mutations.
+This document contains comprehensive examples for testing the Gemini chat tool queries and mutations.
 
 ## Prerequisites
 
@@ -11,15 +11,15 @@ This document contains comprehensive examples for testing the ChatGPT tool queri
 ## Environment Variables
 
 ```bash
-# Database Configuration
+# Database Configuration (PostgreSQL)
 DB_HOST=localhost
-DB_PORT=1433
-DB_USERNAME=sa
+DB_PORT=5432
+DB_USERNAME=postgres
 DB_PASSWORD=your_password
 DB_NAME=intellikit
 
-# OpenAI Configuration
-OPENAI_API_KEY=your_openai_api_key_here
+# Gemini Configuration
+NEST_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 ## 1. System Prompt Operations
@@ -72,13 +72,13 @@ mutation DeleteSystemPrompt {
 
 ## 2. Chat Session Operations
 
-### Create Chat Session (with GPT-3.5)
+### Create Chat Session (with Gemini 2.0 Flash)
 
 ```graphql
 mutation CreateChatSession {
   createChatSession(input: {
     title: "General Chat"
-    model: GPT_3_5_TURBO
+    model: GEMINI_2_0_FLASH
     userId: "your-user-id-here"
   }) {
     id
@@ -93,13 +93,13 @@ mutation CreateChatSession {
 }
 ```
 
-### Create Chat Session (with GPT-4 and System Prompt)
+### Create Chat Session (with Gemini 1.5 Pro and System Prompt)
 
 ```graphql
 mutation CreateChatSessionWithSystemPrompt {
   createChatSession(input: {
     title: "Code Review Session"
-    model: GPT_4
+    model: GEMINI_1_5_PRO
     systemPrompt: "You are a senior software engineer conducting a code review. Provide constructive feedback and suggest improvements."
     userId: "your-user-id-here"
   }) {
@@ -174,7 +174,7 @@ mutation UpdateChatSession {
   updateChatSession(input: {
     id: "chat-session-id-here"
     title: "Updated Chat Title"
-    model: GPT_4
+    model: GEMINI_1_5_PRO
     systemPrompt: "Updated system prompt"
   }) {
     id
@@ -259,7 +259,7 @@ mutation SendFollowupMessage {
 
 ## 4. Complete Example Workflow
 
-Here's a complete example workflow for testing the ChatGPT tool:
+Here's a complete example workflow for testing the Gemini chat tool:
 
 ### Step 1: Create a System Prompt
 
@@ -283,7 +283,7 @@ mutation {
 mutation {
   createChatSession(input: {
     title: "JavaScript Help Session"
-    model: GPT_4
+    model: GEMINI_1_5_PRO
     systemPrompt: "You are a JavaScript expert. Provide modern ES6+ solutions with explanations."
     userId: "user-123"
   }) {
@@ -361,7 +361,7 @@ query {
 mutation {
   createChatSession(input: {
     title: "Code Review"
-    model: GPT_4
+    model: GEMINI_1_5_PRO
     systemPrompt: "You are a senior software engineer. Review code for best practices, security, and performance."
     userId: "user-123"
   }) {
@@ -376,7 +376,7 @@ mutation {
 mutation {
   createChatSession(input: {
     title: "Creative Writing"
-    model: GPT_4
+    model: GEMINI_1_5_PRO
     systemPrompt: "You are a creative writing assistant. Help with storytelling, character development, and narrative structure."
     userId: "user-123"
   }) {
@@ -391,7 +391,7 @@ mutation {
 mutation {
   createChatSession(input: {
     title: "Documentation Help"
-    model: GPT_3_5_TURBO
+    model: GEMINI_2_0_FLASH
     systemPrompt: "You are a technical writing expert. Help create clear, comprehensive documentation."
     userId: "user-123"
   }) {
@@ -408,7 +408,7 @@ mutation {
 mutation {
   createChatSession(input: {
     title: "Test Session"
-    model: GPT_3_5_TURBO
+    model: GEMINI_2_0_FLASH
     userId: "invalid-user-id"
   }) {
     id
@@ -528,4 +528,4 @@ query {
 }
 ```
 
-This comprehensive set of examples covers all the major functionality of the ChatGPT tool and provides a solid foundation for testing and using the API. 
+This comprehensive set of examples covers all the major functionality of the Gemini chat tool and provides a solid foundation for testing and using the API. 
